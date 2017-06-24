@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sringernature;
+package com.sringernature.util;
 
 /**
  * @author admin

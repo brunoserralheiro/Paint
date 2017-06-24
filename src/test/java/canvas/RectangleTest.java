@@ -3,11 +3,12 @@
  */
 package canvas;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.sringernature.Canvas;
+import com.sringernature.model.DrawerService;
+import com.sringernature.model.DrawerServiceImpl;
 
 /**
  * @author admin
@@ -24,8 +25,8 @@ public class RectangleTest {
 	public void testInstance(){
 		int x = 100;
 		int y = 50;
-		Canvas rectangle = new Canvas(x,y);
-		assertEquals(true, rectangle instanceof Canvas);
+		DrawerService drawerServiceImpl = new DrawerServiceImpl();
+		assertEquals(true, drawerServiceImpl instanceof DrawerService);
 	}
 
 }

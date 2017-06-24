@@ -7,7 +7,7 @@ package com.sringernature;
  * @author admin
  *
  */
-public class SpringerSolution {
+public class Main {
 
 	/**
 	 * @param args

@@ -9,6 +9,10 @@ import java.util.Scanner;
 
 import org.hamcrest.core.SubstringMatcher;
 
+import com.sringernature.model.DrawerService;
+import com.sringernature.model.DrawerServiceImpl;
+import com.sringernature.util.CommandLineHelper;
+
 /**
  * @author admin
  *
@@ -17,7 +21,7 @@ public class CommandLine {
 
 	private static Scanner in;
 	private String input = "";
-	private Drawer drawer;
+	private DrawerService drawerServiceImpl;
 
 	public CommandLine() {
 		prompt();
@@ -30,7 +34,7 @@ public class CommandLine {
 		System.out.println(" L x1 y1 x2 y2   =>Should create a new line from (x1,y1) to (x2,y2). Only horizontal or vertical lines are supported. \n");
 		System.out.println(" R x1 y1 x2 y2   =>to choose a color, create a colorful canvas, and exit.");
 		System.out.println(" B x y c         => Should fill the entire area connected to (x,y) with colour 'c' .\n");
-		drawer = new Drawer(getInput());
+		drawerServiceImpl = new DrawerServiceImpl(getInput());
 		while (!getInput().trim().equalsIgnoreCase("Q")) {
 			System.out.printf("Enter command:");
 			setInput(scanInput());
@@ -40,22 +44,23 @@ public class CommandLine {
 //			}
 			if (getInput().length() > 0) {
 				String command = CommandLineHelper.getCommand(getInput());
-				System.out.println(command);
 				switch (command) {
 					case "C":
-						drawer.drawCanvas(getInput());
-						
+					case "c":
+						drawerServiceImpl.drawCanvas(getInput());
 						break;
 					case "L":
-						drawer.drawStraightLine(getInput());
-						
+					case "l":	
+						drawerServiceImpl.drawStraightLine(getInput());
 						break;
 					case "R":
-						drawer = new Drawer();
-						drawer.drawColorfulCanvas(getInput());
+					case "r":	
+						drawerServiceImpl = new DrawerServiceImpl();
+						drawerServiceImpl.drawColorfulCanvas(getInput());
 						break;
 					case "B":
-						drawer.paintCanvas(getInput());
+					case "b":
+						drawerServiceImpl.paintCanvas(getInput());
 					default:
 						break;
 

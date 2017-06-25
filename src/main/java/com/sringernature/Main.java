@@ -4,7 +4,7 @@
 package com.sringernature;
 
 /**
- * @author admin
+ * @author bruno.serralheiro
  *
  */
 public class Main {

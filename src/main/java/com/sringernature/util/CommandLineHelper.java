@@ -4,7 +4,7 @@
 package com.sringernature.util;
 
 /**
- * @author admin
+ * @author bruno.serralheiro
  *
  */
 public class CommandLineHelper {

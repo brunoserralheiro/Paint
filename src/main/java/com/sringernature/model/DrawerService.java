@@ -12,4 +12,7 @@ public interface DrawerService {
 
 	void paintCanvas(String string);
 
+	void drawXBorder(int x);
+	
+	void drawYBorders(int x, int y);
 }

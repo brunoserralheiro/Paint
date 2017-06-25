@@ -14,27 +14,25 @@ import com.sringernature.model.DrawerServiceImpl;
 import com.sringernature.util.CommandLineHelper;
 
 /**
- * @author admin
- *
+ * @author bruno.serralheiro
+ * Class used to scan commands and coordinates and call the Drawer Service.
  */
 public class CommandLine {
 
 	private static Scanner in;
 	private String input = "";
-	private DrawerService drawerServiceImpl;
+	private DrawerService drawerService;
 
 	public CommandLine() {
 		prompt();
 	}
-
+	/**
+	 * 
+	 */
 	private void prompt() {
 
-		System.out.println("Enter the following commands:");
-		System.out.println(" C w h           =>Should create a new canvas of width w and height h. i.e. C 10 20");
-		System.out.println(" L x1 y1 x2 y2   =>Should create a new line from (x1,y1) to (x2,y2). Only horizontal or vertical lines are supported. \n");
-		System.out.println(" R x1 y1 x2 y2   =>to choose a color, create a colorful canvas, and exit.");
-		System.out.println(" B x y c         => Should fill the entire area connected to (x,y) with colour 'c' .\n");
-		drawerServiceImpl = new DrawerServiceImpl(getInput());
+		showCommands();
+		drawerService = new DrawerServiceImpl();
 		while (!getInput().trim().equalsIgnoreCase("Q")) {
 			System.out.printf("Enter command:");
 			setInput(scanInput());
@@ -47,20 +45,20 @@ public class CommandLine {
 				switch (command) {
 					case "C":
 					case "c":
-						drawerServiceImpl.drawCanvas(getInput());
+						drawerService.drawCanvas(getInput());
 						break;
 					case "L":
 					case "l":	
-						drawerServiceImpl.drawStraightLine(getInput());
+						drawerService.drawStraightLine(getInput());
 						break;
 					case "R":
 					case "r":	
-						drawerServiceImpl = new DrawerServiceImpl();
-						drawerServiceImpl.drawColorfulCanvas(getInput());
+						drawerService = new DrawerServiceImpl();
+						drawerService.drawColorfulCanvas(getInput());
 						break;
 					case "B":
 					case "b":
-						drawerServiceImpl.paintCanvas(getInput());
+						drawerService.paintCanvas(getInput());
 					default:
 						break;
 
@@ -72,11 +70,24 @@ public class CommandLine {
 		System.out.println("EXIT APPLICATION");
 			
 	}
-
+	/**
+	 * 
+	 */
 	public static String scanInput() {
+		
 		in = new Scanner(System.in);
 		System.out.println(" ");
 		return in.nextLine();
+	}
+	/**
+	 * 
+	 */
+	private void showCommands() {
+		System.out.println("Enter the following commands:");
+		System.out.println(" C w h           =>Should create a new canvas of width w and height h. i.e. C 10 20");
+		System.out.println(" L x1 y1 x2 y2   =>Should create a new line from (x1,y1) to (x2,y2). Only horizontal or vertical lines are supported. \n");
+		System.out.println(" R x1 y1 x2 y2   =>to choose a color, create a colorful canvas, and exit.");
+		System.out.println(" B x y c         => Should fill the entire area connected to (x,y) with colour 'c' .\n");
 	}
 
 	public String getInput() {

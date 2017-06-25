@@ -11,7 +11,7 @@ import com.sringernature.model.DrawerService;
 import com.sringernature.model.DrawerServiceImpl;
 
 /**
- * @author admin
+ * @author bruno.serralheiro
  *
  */
 public class RectangleTest {

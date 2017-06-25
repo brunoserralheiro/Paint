@@ -8,23 +8,15 @@ import java.awt.Color;
 import com.sringernature.util.CommandLineHelper;
 
 /**
- * @author admin
+ * @author bruno.serralheiro
  *
  */
 public class DrawerServiceImpl implements DrawerService {
 	private final String xLine = "-";
 	private final String yLine = "|";
-
-	private String input;
 	private static final String pixel = "x";
 	// coordinates
 	private int w, h, x1, y1, x2, y2;
-	private Color c;
-	// CommandLineHelper commandHelper = new CommandLineHelper();
-
-	public DrawerServiceImpl(String input) {
-		this.input = input;
-	}
 
 	public DrawerServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -51,55 +43,89 @@ public class DrawerServiceImpl implements DrawerService {
 	 */
 	@Override
 	public void drawStraightLine(String input) {
-		x1 = CommandLineHelper.getX1(input);
-		y1 = CommandLineHelper.getY1(input);
-		x2 = CommandLineHelper.getX2(input);
-		y2 = CommandLineHelper.getY2(input);
-		// showCanvas();
-		if (x1 <= w && x2 < w && y1 <= h && y2 < h 
-				&& x2 < w - x1 & y2 < h - y1) {
-
-			// if line is horizontal or vertical
-			if(x2 != x1 && y2 == y1){
-			//line is horizontal
-				//decide X direction of the line to be drawn
-				if(x2 > x1 && y2 > y1){
-					
-					// redraw x fragment of canvas
-					drawXBorder(w);
-					// start point
-					drawYBorders(w, y1);
-					System.out.print(yLine);
-					for (int i = 1; i < x1; i++) {
-						System.out.print(" ");
-					}
-					// draws horizontal pixels to end point
-					for (int i = 0; i < x2; i++) {
-						System.out.print(pixel);
-					}
-					for (int i = x2 + 1; i < w - 1; i++) {
-						System.out.print(pixel);
-					}
-					System.out.println(yLine);
-					drawYBorders(w, h-y2);
-					// redraw x fragment of canvas
-					drawXBorder(w);
-				}else if(x2 < x1 && y2 < y1){
-					//TODO
-				}else if (x2 > x1 && y2 < y1){
-					//TODO
-				}else if (x2 < x1 && y2 > y1){
-					//TODO
-				}
-			}else if(x2 == x1 && y2 != y1){
+		try {
+			x1 = CommandLineHelper.getX1(input);
+			y1 = CommandLineHelper.getY1(input);
+			x2 = CommandLineHelper.getX2(input);
+			y2 = CommandLineHelper.getY2(input);
+			// showCanvas();
+			if (x1 <= w && x2 < w && y1 <= h && y2 < h 
+					&& x2 < w - x1 & y2 < h - y1) {
+	
+				// Decide if line is horizontal or vertical
+				
+				//line is horizontal
+				if(x2 != x1 && y2 == y1){
+					drawHorizontalLine();
 				//line is vertical
-				//TODO
+				}else if(x2 == x1 && y2 != y1){
+									
+					 drawVerticalLine();
+					 
+					 
+					 
+				}else if(x1 == x2 && y1 == y2){
+					System.out.println("Coordinates cannot be the same!");
+				}else
+				{
+					System.out.println("Currently only horizontal or vertical lines are supported.");
+				}
+	
 			}else{
-				System.out.println("Currently only horizontal or vertical lines are supported.");
+				System.out.println("Line out of canvas!");
 			}
+		} catch (NumberFormatException e) {
+			// TODO: handle exception
+		} catch (Exception e){
+			
+		}
+	}
 
+	/**
+	 * 
+	 */
+	private void drawVerticalLine() {
+		//upwards
+		 if ( y2 < y1){
+			//TODO
+		//downwards	 
 		}else{
-			System.out.println("Line out of canvas!");
+			//TODO
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void drawHorizontalLine() {
+		//decide X direction of the line to be drawn
+		if(x2 > x1 ){
+			
+			// redraw x fragment of canvas
+			drawXBorder(w);
+			// start point
+			drawYBorders(w, y1);
+			System.out.print(yLine);
+			for (int i = 1; i < x1; i++) {
+				System.out.print(" ");
+			}
+			// draws horizontal pixels to end point
+			for (int i = 0; i < x2; i++) {
+				System.out.print(pixel);
+			}
+			for (int i = x2 + 1; i < w - 3; i++) {
+				System.out.print(" ");
+			}
+			System.out.println(yLine);
+			drawYBorders(w, h-y2);
+			// redraw x fragment of canvas
+			drawXBorder(w);
+		}else if(x2 < x1){
+			//TODO
+		}else if (x2 > x1 && y2 < y1){
+			//TODO
+		}else if (x2 < x1 && y2 > y1){
+			//TODO
 		}
 	}
 
@@ -112,15 +138,18 @@ public class DrawerServiceImpl implements DrawerService {
 		drawYBorders(w, h);
 		drawXBorder(w);
 	}
-
-	private void drawXBorder(int x) {
+	/**
+	 * 
+	 */
+	@Override
+	public void drawXBorder(int x) {
 		for (int i = 0; i < x; i++) {
 			System.out.printf(xLine);
 		}
 		System.out.println("");
 	}
-
-	private void drawYBorders(int x, int y) {
+	@Override
+	public void drawYBorders(int x, int y) {
 		for (int i = 0; i < y; i++) {
 			System.out.printf(yLine);
 			for (int j = 0; j < x - 2; j++) {
